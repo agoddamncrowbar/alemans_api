@@ -6,11 +6,40 @@ use Dotenv\Dotenv;
 
 require 'vendor/autoload.php';
 
-header("Content-Type: application/json");
-
-// Load .env
+// Load .env FIRST
 $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
+
+/*
+==========================
+CORS CONFIGURATION
+==========================
+*/
+
+$allowedOrigin = $_ENV['ALLOWED_ORIGIN'] ?? '';
+$requestOrigin = $_SERVER['HTTP_ORIGIN'] ?? '';
+
+if ($requestOrigin === $allowedOrigin) {
+    header("Access-Control-Allow-Origin: $allowedOrigin");
+}
+
+header("Access-Control-Allow-Methods: POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
+header("Access-Control-Allow-Credentials: true");
+
+// Handle preflight request
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit;
+}
+
+header("Content-Type: application/json");
+
+/*
+==========================
+REQUEST VALIDATION
+==========================
+*/
 
 // Validate request method
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {

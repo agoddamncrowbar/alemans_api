@@ -16,6 +16,7 @@ INFO_PASSWORD=
 
 SMTP_HOST=
 SMTP_PORT=
+ALLOWED_ORIGIN=http://localhost:4321
 ```
 
 **Will send details via whatsapp, contact when ready**
