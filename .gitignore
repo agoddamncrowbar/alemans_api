@@ -1,0 +1,17 @@
+# Composer dependencies
+/vendor/
+
+# Composer lock file (optional — remove this line if you WANT deterministic installs)
+composer.lock
+
+# Composer binary
+composer.phar
+
+# Environment variables
+.env
+
+# OS / Editor junk
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
