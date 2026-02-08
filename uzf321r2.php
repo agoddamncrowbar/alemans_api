@@ -1,5 +1,13 @@
 <?php
 
+
+// Error handling and timeout settings
+ini_set('display_errors', 0);
+ini_set('log_errors', 1);
+error_reporting(E_ALL);
+set_time_limit(120); // 2 minutes max
+ignore_user_abort(true);
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use Dotenv\Dotenv;
@@ -10,6 +18,9 @@ require 'vendor/autoload.php';
 $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
+// Turn off PHP error display (so errors don't break JSON)
+ini_set('display_errors', 0);
+error_reporting(E_ALL);
 /*
 ==========================
 CORS CONFIGURATION
@@ -98,6 +109,9 @@ try {
     $mail1->Password = $websitePass;
     $mail1->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
     $mail1->Port = $port;
+    $mail1->Timeout = 30; 
+    $mail1->SMTPKeepAlive = true; 
+    $mail1->SMTPDebug = 0; 
 
     $mail1->setFrom($websiteEmail, "Website Contact Form");
     $mail1->addAddress($infoEmail);
@@ -135,6 +149,9 @@ try {
     $mail2->Password = $infoPass;
     $mail2->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail2->Port = $port;
+    $mail2->Timeout = 30; 
+    $mail2->SMTPKeepAlive = true; 
+    $mail2->SMTPDebug = 0; 
 
     $mail2->setFrom($infoEmail, "Alemans Adventures");
     $mail2->addAddress($recipientEmail, $recipientName);
@@ -159,6 +176,8 @@ try {
 } catch (Exception $e) {
     http_response_code(500);
     echo json_encode([
+        "success" => false,
         "error" => $e->getMessage()
     ]);
+    exit;
 }
