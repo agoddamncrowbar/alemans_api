@@ -1,11 +1,9 @@
 <?php
 
-
-// Error handling and timeout settings
 ini_set('display_errors', 0);
 ini_set('log_errors', 1);
 error_reporting(E_ALL);
-set_time_limit(120); // 2 minutes max
+set_time_limit(120);
 ignore_user_abort(true);
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -14,31 +12,33 @@ use Dotenv\Dotenv;
 
 require 'vendor/autoload.php';
 
-// Load .env FIRST
+// Load environment variables
 $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
-// Turn off PHP error display (so errors don't break JSON)
-ini_set('display_errors', 0);
-error_reporting(E_ALL);
 /*
 ==========================
 CORS CONFIGURATION
 ==========================
 */
 
-$allowedOrigin = $_ENV['ALLOWED_ORIGIN'] ?? '';
+$allowedOrigins = array_filter([
+    $_ENV['ALLOWED_ORIGIN_DEV'] ?? null,
+    $_ENV['ALLOWED_ORIGIN_PROD'] ?? null,
+]);
+
 $requestOrigin = $_SERVER['HTTP_ORIGIN'] ?? '';
 
-if ($requestOrigin === $allowedOrigin) {
-    header("Access-Control-Allow-Origin: $allowedOrigin");
+if (in_array($requestOrigin, $allowedOrigins)) {
+    header("Access-Control-Allow-Origin: $requestOrigin");
+    header("Access-Control-Allow-Credentials: true");
 }
 
+header("Vary: Origin");
 header("Access-Control-Allow-Methods: POST, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Authorization");
-header("Access-Control-Allow-Credentials: true");
+header("Access-Control-Allow-Headers: Content-Type");
 
-// Handle preflight request
+// Handle preflight
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit;
@@ -52,14 +52,12 @@ REQUEST VALIDATION
 ==========================
 */
 
-// Validate request method
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
     echo json_encode(["error" => "POST only"]);
     exit;
 }
 
-// Get parameters
 $recipientEmail = $_POST['email'] ?? '';
 $recipientName  = $_POST['name'] ?? '';
 $subject        = $_POST['subject'] ?? '';
@@ -71,18 +69,21 @@ if (!$recipientEmail || !$recipientName || !$subject || !$message) {
     exit;
 }
 
-// Helper: Load template and replace placeholders
 function loadTemplate($path, $data) {
     $html = file_get_contents($path);
-
     foreach ($data as $key => $value) {
-        $html = str_replace("{{".$key."}}", nl2br(htmlspecialchars($value)), $html);
+        $safeValue = nl2br(htmlspecialchars($value));
+        $html = str_replace("{{".$key."}}", $safeValue, $html);
     }
-
     return $html;
 }
 
-// SMTP config
+/*
+==========================
+SMTP CONFIG
+==========================
+*/
+
 $host = $_ENV['SMTP_HOST'];
 $port = $_ENV['SMTP_PORT'];
 
@@ -101,7 +102,6 @@ try {
     */
 
     $mail1 = new PHPMailer(true);
-
     $mail1->isSMTP();
     $mail1->Host = $host;
     $mail1->SMTPAuth = true;
@@ -109,9 +109,7 @@ try {
     $mail1->Password = $websitePass;
     $mail1->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
     $mail1->Port = $port;
-    $mail1->Timeout = 30; 
-    $mail1->SMTPKeepAlive = true; 
-    $mail1->SMTPDebug = 0; 
+    $mail1->Timeout = 30;
 
     $mail1->setFrom($websiteEmail, "Website Contact Form");
     $mail1->addAddress($infoEmail);
@@ -119,7 +117,7 @@ try {
     $mail1->isHTML(true);
     $mail1->Subject = $subject;
 
-    $internalTemplate = loadTemplate(
+    $mail1->Body = loadTemplate(
         __DIR__ . "/templates/internal_notification.html",
         [
             "name" => $recipientName,
@@ -128,8 +126,6 @@ try {
             "message" => $message
         ]
     );
-
-    $mail1->Body = $internalTemplate;
 
     $mail1->send();
 
@@ -141,17 +137,14 @@ try {
     */
 
     $mail2 = new PHPMailer(true);
-
     $mail2->isSMTP();
     $mail2->Host = $host;
     $mail2->SMTPAuth = true;
     $mail2->Username = $infoEmail;
     $mail2->Password = $infoPass;
-    $mail2->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    $mail2->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
     $mail2->Port = $port;
-    $mail2->Timeout = 30; 
-    $mail2->SMTPKeepAlive = true; 
-    $mail2->SMTPDebug = 0; 
+    $mail2->Timeout = 30;
 
     $mail2->setFrom($infoEmail, "Alemans Adventures");
     $mail2->addAddress($recipientEmail, $recipientName);
@@ -159,15 +152,13 @@ try {
     $mail2->isHTML(true);
     $mail2->Subject = "We received your message";
 
-    $confirmationTemplate = loadTemplate(
+    $mail2->Body = loadTemplate(
         __DIR__ . "/templates/user_confirmation.html",
         [
             "name" => $recipientName,
             "subject" => $subject
         ]
     );
-
-    $mail2->Body = $confirmationTemplate;
 
     $mail2->send();
 

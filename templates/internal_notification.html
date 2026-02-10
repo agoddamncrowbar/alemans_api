@@ -1,203 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Contact Inquiry</title>
-</head>
-
-<body style="margin: 0; padding: 0; font-family: 'Arial', 'Helvetica', sans-serif; background-color: #f5f5f5;">
-    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0"
-        style="background-color: #f5f5f5;">
-        <tr>
-            <td align="center" style="padding: 40px 20px;">
-                <!-- Main Container -->
-                <table role="presentation" width="600" cellspacing="0" cellpadding="0" border="0"
-                    style="background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); overflow: hidden;">
-
-                    <!-- Header with Brand Colors -->
-                    <tr>
-                        <td
-                            style="background: linear-gradient(135deg, #1A0A0B 0%, #340608 100%); padding: 30px; text-align: center;">
-                            <!-- Logo -->
-                            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0"
-                                style="margin-bottom: 20px;">
-                                <tr>
-                                    <td align="center">
-                                        <img src="public/images/logo.jpeg" alt="Alemans Adventures"
-                                            style="max-width: 180px; height: auto;" />
-                                    </td>
-                                </tr>
-                            </table>
-
-                            <h1
-                                style="margin: 0; color: #F5D547; font-size: 24px; font-weight: bold; letter-spacing: 1px; text-transform: uppercase;">
-                                New Contact Inquiry
-                            </h1>
-                            <p style="margin: 10px 0 0 0; color: #FFFDF9; font-size: 14px; opacity: 0.9;">
-                                Alemans Adventures Contact Form
-                            </p>
-                        </td>
-                    </tr>
-
-                    <!-- Content Section -->
-                    <tr>
-                        <td style="padding: 40px 30px;">
-
-                            <!-- Alert Box -->
-                            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0"
-                                style="background-color: #FFF9E6; border-left: 4px solid #F5D547; margin-bottom: 30px;">
-                                <tr>
-                                    <td style="padding: 15px 20px;">
-                                        <p style="margin: 0; color: #1A0A0B; font-size: 14px; font-weight: 600;">
-                                            &#9889; Action Required: New Customer Inquiry
-                                        </p>
-                                    </td>
-                                </tr>
-                            </table>
-
-                            <!-- Customer Information -->
-                            <h2
-                                style="margin: 0 0 20px 0; color: #340608; font-size: 18px; font-weight: bold; border-bottom: 2px solid #F5D547; padding-bottom: 10px;">
-                                Customer Information
-                            </h2>
-
-                            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0"
-                                style="margin-bottom: 30px;">
-                                <tr>
-                                    <td style="padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
-                                        <table role="presentation" width="100%" cellspacing="0" cellpadding="0"
-                                            border="0">
-                                            <tr>
-                                                <td width="120" style="color: #666; font-size: 14px; font-weight: 600;">
-                                                    &#128100; Name:
-                                                </td>
-                                                <td style="color: #1A0A0B; font-size: 14px; font-weight: 500;">
-                                                    {{name}}
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
-                                        <table role="presentation" width="100%" cellspacing="0" cellpadding="0"
-                                            border="0">
-                                            <tr>
-                                                <td width="120" style="color: #666; font-size: 14px; font-weight: 600;">
-                                                    &#128231; Email:
-                                                </td>
-                                                <td style="color: #1A0A0B; font-size: 14px;">
-                                                    <a href="mailto:{{email}}"
-                                                        style="color: #340608; text-decoration: none; font-weight: 500;">
-                                                        {{email}}
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
-                                        <table role="presentation" width="100%" cellspacing="0" cellpadding="0"
-                                            border="0">
-                                            <tr>
-                                                <td width="120" style="color: #666; font-size: 14px; font-weight: 600;">
-                                                    &#128203; Subject:
-                                                </td>
-                                                <td style="color: #1A0A0B; font-size: 14px; font-weight: 500;">
-                                                    {{subject}}
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table>
-
-                            <!-- Message Section -->
-                            <h2
-                                style="margin: 0 0 15px 0; color: #340608; font-size: 18px; font-weight: bold; border-bottom: 2px solid #F5D547; padding-bottom: 10px;">
-                                &#128172; Message
-                            </h2>
-
-                            <div
-                                style="background-color: #FFFDF9; border: 1px solid #F5D547; border-radius: 6px; padding: 20px; margin-bottom: 30px;">
-                                <p
-                                    style="margin: 0; color: #1A0A0B; font-size: 14px; line-height: 1.6; white-space: pre-wrap;">
-                                    {{message}}</p>
-                            </div>
-
-                            <!-- Quick Action Button -->
-                            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
-                                <tr>
-                                    <td align="center" style="padding: 20px 0;">
-                                        <a href="mailto:{{email}}?subject=Re: {{subject}}"
-                                            style="display: inline-block; background: linear-gradient(135deg, #1A0A0B 0%, #340608 100%); color: #F5D547; text-decoration: none; padding: 14px 35px; border-radius: 6px; font-weight: bold; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 4px 10px rgba(26, 10, 11, 0.3);">
-                                            &#128232; Reply to Customer
-                                        </a>
-                                    </td>
-                                </tr>
-                            </table>
-
-                        </td>
-                    </tr>
-
-                    <!-- Footer -->
-                    <tr>
-                        <td
-                            style="background-color: #f9f9f9; padding: 20px 30px; text-align: center; border-top: 1px solid #e0e0e0;">
-                            <p style="margin: 0 0 10px 0; color: #666; font-size: 12px;">
-                                This email was sent from the <strong>Alemans Adventures</strong> contact form
-                            </p>
-                            <p style="margin: 0; color: #999; font-size: 11px;">
-                                Received on: <strong>
-                                    <?php echo date('F j, Y \a\t g:i A'); ?>
-                                </strong>
-                            </p>
-                        </td>
-                    </tr>
-
-                </table>
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="color-scheme" content="light dark">
+      <meta name="supported-color-schemes" content="light dark">
+      <title>New Contact Inquiry</title>
+      <style>
+         /* CLIENT RESETS */
+         body, table, td, a { -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; }
+         table { border-collapse:collapse !important; }
+         body { margin:0 !important; padding:0 !important; width:100% !important; }
+         /* MOBILE */
+         @media screen and (max-width:600px){
+         .container { width:100% !important; }
+         .padding { padding:20px !important; }
+         .button a { width:100% !important; display:block !important; }
+         }
+         /* DARK MODE */
+         @media (prefers-color-scheme: dark) {
+         body, .email-bg { background:#0e0a0b !important; }
+         .card { background:#1b1314 !important; }
+         .section-light { background:#22191a !important; }
+         .text-main { color:#f5f3f2 !important; }
+         .text-muted { color:#cfc7c5 !important; }
+         .divider { background:#F5D547 !important; }
+         .btn-dark { background:#F5D547 !important; }
+         .btn-dark a { color:#1A0A0B !important; }
+         }
+      </style>
+   </head>
+   <body style="margin:0; padding:0; background:#f7f6f4;" class="email-bg">
+      <!-- PREHEADER -->
+      <div style="display:none; max-height:0; overflow:hidden; opacity:0;">
+         You have received a new inquiry from your website contact form.
+      </div>
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+         <tr>
+            <td align="center" style="padding:30px 15px;">
+               <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" class="container card" style="max-width:600px; width:100%; background:#ffffff;">
+                  <!-- HEADER -->
+                  <tr>
+                     <td align="center" style="padding:40px 30px 30px 30px; background:#1A0A0B;">
+                        <img src="https://alemansadventures.com/logo.jpeg" width="160" alt="Alemans Adventures Logo" style="display:block; margin:0 auto 20px auto;">
+                        <div class="divider" style="width:40px; height:2px; background:#F5D547; margin:0 auto 20px auto;"></div>
+                        <h1 style="margin:0; font-family:Arial, Helvetica, sans-serif; font-size:22px; letter-spacing:2px; text-transform:uppercase; color:#F5D547;">
+                           New Contact Inquiry
+                        </h1>
+                        <p style="margin:10px 0 0 0; font-size:13px; color:#e7e2e1;" class="text-muted">
+                           Alemans Adventures Website
+                        </p>
+                     </td>
+                  </tr>
+                  <!-- BODY -->
+                  <tr>
+                     <td class="padding text-main" style="padding:40px 30px; font-family:Arial, Helvetica, sans-serif; color:#2b2b2b; font-size:15px; line-height:1.7;">
+                        <!-- ALERT -->
+                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:30px;">
+                           <tr>
+                              <td style="padding:15px 20px; border-left:4px solid #F5D547; background:#FBFAF8; font-size:14px; font-weight:bold;">
+                                 ⚡ Action Required: New Customer Inquiry
+                              </td>
+                           </tr>
+                        </table>
+                        <!-- CUSTOMER INFO -->
+                        <div class="divider" style="width:40px; height:2px; background:#F5D547; margin-bottom:15px;"></div>
+                        <h2 style="margin:0 0 20px 0; font-size:16px; letter-spacing:1px; text-transform:uppercase; color:#1A0A0B;" class="text-main">
+                           Customer Information
+                        </h2>
+                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="font-size:14px;">
+                           <tr>
+                              <td style="padding:10px 0; color:#8a8a8a; width:120px;">Name:</td>
+                              <td style="padding:10px 0;">{{name}}</td>
+                           </tr>
+                           <tr>
+                              <td style="padding:10px 0; color:#8a8a8a;">Email:</td>
+                              <td style="padding:10px 0;">
+                                 <a href="mailto:{{email}}" style="color:#1A0A0B; font-weight:bold; text-decoration:none;" class="text-main">{{email}}</a>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td style="padding:10px 0; color:#8a8a8a;">Subject:</td>
+                              <td style="padding:10px 0;">{{subject}}</td>
+                           </tr>
+                        </table>
+                        <!-- MESSAGE -->
+                        <div class="divider" style="width:40px; height:2px; background:#F5D547; margin:40px 0 15px 0;"></div>
+                        <h2 style="margin:0 0 15px 0; font-size:16px; letter-spacing:1px; text-transform:uppercase; color:#1A0A0B;" class="text-main">
+                           Message
+                        </h2>
+                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #F5D547;">
+                           <tr>
+                              <td style="padding:20px; font-size:14px; line-height:1.7; background:#FCFBF9;" class="section-light text-main">
+                                 {{message}}
+                              </td>
+                           </tr>
+                        </table>
+                        <!-- BUTTON -->
+                        <table role="presentation" align="center" cellpadding="0" cellspacing="0" style="margin-top:35px;" class="btn-dark">
+                           <tr>
+                              <td align="center" bgcolor="#1A0A0B" style="border-radius:4px;">
+                                 <a href="mailto:{{email}}?subject=Re: {{subject}}"
+                                    style="display:inline-block; padding:16px 32px; font-size:14px; font-weight:bold; letter-spacing:1px; text-transform:uppercase; text-decoration:none; color:#F5D547; min-width:220px;">
+                                 Reply to Customer
+                                 </a>
+                              </td>
+                           </tr>
+                        </table>
+                     </td>
+                  </tr>
+                  <!-- FOOTER -->
+                  <tr>
+                     <td style="padding:25px 30px; background:#F3F1EE; text-align:center; font-size:12px; color:#777;" class="text-muted">
+                        This email was sent from the <strong>Alemans Adventures</strong> website contact form.<br><br>
+                        Received on: <strong><?php echo date('F j, Y \a\t g:i A'); ?></strong>
+                     </td>
+                  </tr>
+               </table>
             </td>
-        </tr>
-    </table>
-</body>
-
+         </tr>
+      </table>
+   </body>
 </html>
-<!-- <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<style>
-body {
-    font-family: Arial, sans-serif;
-    background: #f4f4f4;
-    padding: 20px;
-}
-.container {
-    background: white;
-    padding: 20px;
-    border-radius: 6px;
-}
-h2 {
-    color: #333;
-}
-p {
-    line-height: 1.5;
-}
-</style>
-</head>
-<body>
-<div class="container">
-    <h2>New Contact Form Submission</h2>
-
-    <p><strong>Name:</strong> {{name}}</p>
-    <p><strong>Email:</strong> {{email}}</p>
-    <p><strong>Subject:</strong> {{subject}}</p>
-    <p><strong>Message:</strong></p>
-
-    <p>{{message}}</p>
-</div>
-</body>
-</html> -->
